@@ -42,15 +42,6 @@ local Console = MainTab:AddConsole({
 
 Elerium:FormatWindows()
 
--- anti afk
-
-LocalPlayer.Idled:connect(function()
-    print("anti afk worked")
-    VirtualUser:Button2Down(Vector2.new(0,0), CurrentCamera.CFrame)
-    wait(1)
-    VirtualUser:Button2Up(Vector2.new(0,0), CurrentCamera.CFrame)
-end)
-
 -- autofarm
 Console:Log("Добро пожаловать!")
 
@@ -97,7 +88,7 @@ local function flowerCheck()
 
         if not Settings.Enabled then continue end
 
-        bypass_teleport(flower.CFrame, 500)
+        bypass_teleport(flower.CFrame, 450)
         wait(1)
         proximity_prompt:InputHoldBegin()
         wait(proximity_prompt["HoldDuration"])
@@ -111,7 +102,7 @@ local function loadMap()
         if not Settings.Enabled then continue end
 
         Console:Log(string.format("Проверяю точки на карте [%d / %d]", i, #spawn))
-        bypass_teleport(sp, 500)
+        bypass_teleport(sp, 450)
         flowerCheck()
 	wait(1)
     end
@@ -120,5 +111,8 @@ end
 while wait() do
     if Settings.Enabled then
         loadMap()
+	VirtualUser:Button2Down(Vector2.new(0,0), CurrentCamera.CFrame)
+	wait(0.1)
+	VirtualUser:Button2Up(Vector2.new(0,0), CurrentCamera.CFrame)
     end
 end
