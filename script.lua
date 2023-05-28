@@ -98,7 +98,7 @@ local function flowerCheck()
         if not Settings.Enabled then continue end
 
         bypass_teleport(flower.CFrame, 500)
-        wait(0.1)
+        wait(1)
         proximity_prompt:InputHoldBegin()
         wait(proximity_prompt["HoldDuration"])
         Console:Log("Жду 1 секунду...")
@@ -113,6 +113,7 @@ local function loadMap()
         Console:Log(string.format("Проверяю точки на карте [%d / %d]", i, #spawn))
         bypass_teleport(sp, 500)
         flowerCheck()
+	wait(1)
     end
 end
 
