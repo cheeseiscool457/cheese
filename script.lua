@@ -34,6 +34,10 @@ local MainTab = Window:AddTab("Main")
 MainTab:Show()
 MainTab:AddSwitch("Autofarm", function(bool) Settings.Enabled = bool end)
 
+MainTab:AddButton("Rejoin", function()
+	print("Gave ... !")
+end)
+
 local Console = MainTab:AddConsole({
 	y = 100,
 	readonly = true,
@@ -88,7 +92,7 @@ local function flowerCheck()
 
         if not Settings.Enabled then continue end
 
-        bypass_teleport(flower.CFrame, 450)
+        bypass_teleport(flower.CFrame, 375)
         wait(1)
         proximity_prompt:InputHoldBegin()
         wait(proximity_prompt["HoldDuration"])
@@ -102,7 +106,7 @@ local function loadMap()
         if not Settings.Enabled then continue end
 
         Console:Log(string.format("Проверяю точки на карте [%d / %d]", i, #spawn))
-        bypass_teleport(sp, 450)
+        bypass_teleport(sp, 375)
         flowerCheck()
 	wait(1)
     end
@@ -114,5 +118,7 @@ while wait() do
 	VirtualUser:Button2Down(Vector2.new(0,0), CurrentCamera.CFrame)
 	wait(0.1)
 	VirtualUser:Button2Up(Vector2.new(0,0), CurrentCamera.CFrame)
+	wait(10)
+	
     end
 end
