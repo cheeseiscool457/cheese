@@ -18,11 +18,12 @@ local StarterGui = game:GetService("StarterGui")
 local SoundService = game:GetService("SoundService")
 local TeleportService = game:GetService("TeleportService")
 
-local Settings = {
+Settings = {
     Enabled = false
 }
 
 local function rejoin() 
+    queue_on_teleport("print(\'[FunPay] [Queue loaded]\') wait(15) print(\'[FunPay] [Loading script]\') local switch = loadstring(game:HttpGet('https://raw.githubusercontent.com/lomychx/projectslayer/main/script.lua'))() print(555) switch(true)")
 	TeleportService:TeleportToPlaceInstance(game.PlaceId, game.JobId, LocalPlayer)
 end
 
@@ -52,11 +53,6 @@ local Console = MainTab:AddConsole({
 Elerium:FormatWindows()
 
 -- autofarm
-LocalPlayer.OnTeleport:Connect(function(State)
-    if State == Enum.TeleportState.Started then
-        queue_on_teleport("loadstring(game:HttpGet('https://raw.githubusercontent.com/lomychx/projectslayer/main/script.lua'))()")
-    end
-end)
 
 Console:Log("Добро пожаловать!")
 
@@ -136,6 +132,10 @@ while wait() do
 	wait(0.1)
 	VirtualUser:Button2Up(Vector2.new(0,0), CurrentCamera.CFrame)
 	wait(10)
-	
-    end
 end
+
+function switch(bool)
+    Settings.Enabled = bool
+end
+
+return switch
