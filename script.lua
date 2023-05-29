@@ -16,10 +16,15 @@ local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local VirtualUser = game:GetService("VirtualUser")
 local StarterGui = game:GetService("StarterGui")
 local SoundService = game:GetService("SoundService")
+local TeleportService = game:GetService("TeleportService")
 
 local Settings = {
     Enabled = false
 }
+
+local function rejoin() 
+	TeleportService:TeleportToPlaceInstance(game.PlaceId, game.JobId, LocalPlayer)
+end
 
 -- UI
 local Window = Elerium:AddWindow("Project slayer", {
@@ -35,7 +40,7 @@ MainTab:Show()
 MainTab:AddSwitch("Autofarm", function(bool) Settings.Enabled = bool end)
 
 MainTab:AddButton("Rejoin", function()
-	print("Gave ... !")
+	rejoin()
 end)
 
 local Console = MainTab:AddConsole({
@@ -47,6 +52,12 @@ local Console = MainTab:AddConsole({
 Elerium:FormatWindows()
 
 -- autofarm
+LocalPlayer.OnTeleport:Connect(function(State)
+    if State == Enum.TeleportState.Started then
+        queue_on_teleport("loadstring(game:HttpGet('https://raw.githubusercontent.com/lomychx/projectslayer/main/script.lua'))()")
+    end
+end)
+
 Console:Log("Добро пожаловать!")
 
 local function bypass_teleport(cf, speed)
@@ -108,13 +119,19 @@ local function loadMap()
         Console:Log(string.format("Проверяю точки на карте [%d / %d]", i, #spawn))
         bypass_teleport(sp, 375)
         flowerCheck()
-	wait(1)
+		wait(1)
     end
 end
 
 while wait() do
     if Settings.Enabled then
-        loadMap()
+		loadMap()
+		loadMap()
+		loadMap()
+		loadMap()
+		loadMap()
+    end
+	
 	VirtualUser:Button2Down(Vector2.new(0,0), CurrentCamera.CFrame)
 	wait(0.1)
 	VirtualUser:Button2Up(Vector2.new(0,0), CurrentCamera.CFrame)
