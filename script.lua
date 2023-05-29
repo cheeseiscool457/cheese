@@ -22,10 +22,10 @@ Settings = {
     Enabled = false
 }
 
-local function rejoin() 
-    queue_on_teleport("print(\'[FunPay] [Queue loaded]\') wait(15) print(\'[FunPay] [Loading script]\') local switch = loadstring(game:HttpGet('https://raw.githubusercontent.com/lomychx/projectslayer/main/script.lua'))() print(555) switch(true)")
-	TeleportService:TeleportToPlaceInstance(game.PlaceId, game.JobId, LocalPlayer)
-end
+-- local function rejoin() 
+--     queue_on_teleport("print(\'[FunPay] [Queue loaded]\') wait(15) print(\'[FunPay] [Loading script]\') local switch = loadstring(game:HttpGet('https://raw.githubusercontent.com/lomychx/projectslayer/main/script.lua'))() print(555) switch(true)")
+-- 	TeleportService:TeleportToPlaceInstance(game.PlaceId, game.JobId, LocalPlayer)
+-- end
 
 -- UI
 local Window = Elerium:AddWindow("Project slayer", {
@@ -40,9 +40,9 @@ local MainTab = Window:AddTab("Main")
 MainTab:Show()
 MainTab:AddSwitch("Autofarm", function(bool) Settings.Enabled = bool end)
 
-MainTab:AddButton("Rejoin", function()
-	rejoin()
-end)
+-- MainTab:AddButton("Rejoin", function()
+-- 	rejoin()
+-- end)
 
 local Console = MainTab:AddConsole({
 	y = 100,
@@ -99,11 +99,11 @@ local function flowerCheck()
 
         if not Settings.Enabled then continue end
 
-        bypass_teleport(flower.CFrame, 375)
+        bypass_teleport(flower.CFrame, 500)
         wait(1)
         proximity_prompt:InputHoldBegin()
-        wait(proximity_prompt["HoldDuration"])
         Console:Log("Жду 1 секунду...")
+        wait(proximity_prompt["HoldDuration"])
         wait(1)
     end
 end
@@ -113,29 +113,27 @@ local function loadMap()
         if not Settings.Enabled then continue end
 
         Console:Log(string.format("Проверяю точки на карте [%d / %d]", i, #spawn))
-        bypass_teleport(sp, 375)
+        bypass_teleport(sp, 500)
         flowerCheck()
 		wait(1)
     end
+
+    
 end
 
 while wait() do
     if Settings.Enabled then
 		loadMap()
-		loadMap()
-		loadMap()
-		loadMap()
-		loadMap()
+        loadMap()
+        loadMap()
+
+        if Settings.Enabled then
+            Console:Log("Отдыхаю 1 минуту...")
+            wait(60)
+        end
+
+        VirtualUser:Button2Down(Vector2.new(0,0), CurrentCamera.CFrame)
+        wait(0.1)
+        VirtualUser:Button2Up(Vector2.new(0,0), CurrentCamera.CFrame)
     end
-	
-	VirtualUser:Button2Down(Vector2.new(0,0), CurrentCamera.CFrame)
-	wait(0.1)
-	VirtualUser:Button2Up(Vector2.new(0,0), CurrentCamera.CFrame)
-	wait(10)
 end
-
-function switch(bool)
-    Settings.Enabled = bool
-end
-
-return switch
