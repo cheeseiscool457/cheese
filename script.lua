@@ -115,7 +115,7 @@ local function loadMap()
         Console:Log(string.format("Проверяю точки на карте [%d / %d]", i, #spawn))
         bypass_teleport(sp, 500)
         flowerCheck()
-		wait(1)
+	wait(10)
     end
 
     
